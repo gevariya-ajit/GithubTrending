@@ -58,4 +58,8 @@ dependencies {
     implementation libraries.retrofit.retrofit
     implementation libraries.retrofit.gson
 
+    implementation libraries.rxJava
+    implementation libraries.rxAndroid
+    implementation libraries.rxKotlin
+
 }
