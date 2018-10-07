@@ -51,7 +51,7 @@ object AppModule {
     private fun createOkHttpClient(context: Context): OkHttpClient {
 
         val loggingInterceptor = HttpLoggingInterceptor { message -> Timber.i(message) }
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
 
         val cacheFile = File(context.cacheDir, "NetworkCache")
         val cache = Cache(cacheFile, (10 * 1000 * 1000).toLong()) // 10 MB

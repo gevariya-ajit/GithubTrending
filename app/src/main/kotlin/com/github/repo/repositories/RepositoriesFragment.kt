@@ -54,12 +54,6 @@ class RepositoriesFragment : BaseFragment() {
         setToolbarTitle(getString(R.string.repositories))
     }
 
-    override fun onBackPressed(): Boolean {
-        baseActivity()?.finish()
-        return true
-    }
-
-
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //// Private methods
 
