@@ -11,7 +11,8 @@ ext {
             rxKotlin      : '2.2.0',
             epoxy         : '2.14.0',
             epoxyDatabindg: '2.6.0',
-            databinding   : '3.1.4'
+            databinding   : '3.1.4',
+            glide         : '4.8.0'
     ]
 
     libraries = [
@@ -41,7 +42,11 @@ ext {
                     epoxy      : "com.airbnb.android:epoxy:$versions.epoxy",
                     databinding: "com.airbnb.android:epoxy-databinding:$versions.epoxyDatabindg"
             ],
-            databinding     : "com.android.databinding:compiler:$versions.databinding"
+            databinding     : "com.android.databinding:compiler:$versions.databinding",
+            glide           : [
+                    glide              : "com.github.bumptech.glide:glide:$versions.glide",
+                    annotationProcessor: "com.github.bumptech.glide:compiler:$versions.glide"
+            ]
 
 
     ]

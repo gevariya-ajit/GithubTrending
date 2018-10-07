@@ -1,8 +1,13 @@
 package com.github.repo.repositories
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.github.repo.R
 import com.github.repo.base.BaseFragment
+import com.github.repo.databinding.FragmentRepositoryDetailBinding
 import com.github.repo.model.Repository
 import com.google.gson.Gson
 
@@ -12,11 +17,15 @@ class RepositoryDetailFragment : BaseFragment() {
     //// Private members
 
     private var repository: Repository? = null
+    private lateinit var databinding: FragmentRepositoryDetailBinding
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //// Override methods
 
-    override fun getLayout(): Int = R.layout.fragment_repository_detail
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        databinding = DataBindingUtil.inflate<FragmentRepositoryDetailBinding>(inflater,R.layout.fragment_repository_detail, container, false)
+        return databinding.root
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -41,7 +50,7 @@ class RepositoryDetailFragment : BaseFragment() {
     //// Private methods
 
     private fun initData(repository: Repository?) {
-
+        databinding.repo = repository
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

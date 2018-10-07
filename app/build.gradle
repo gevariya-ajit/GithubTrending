@@ -71,4 +71,7 @@ dependencies {
 
     kapt libraries.databinding
 
+    implementation libraries.glide.glide
+    annotationProcessor libraries.glide.annotationProcessor
+
 }

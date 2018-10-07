@@ -1,19 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true"
-    android:focusable="true"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?android:selectableItemBackground">
 
-    <include layout="@layout/app_bar_layout" />
+    <data>
+
+        <variable
+            name="repo"
+            type="com.github.repo.model.Repository" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/lite_grey"
+        android:clickable="true"
+        android:focusable="true"
         android:orientation="vertical">
 
-    </LinearLayout>
+        <include layout="@layout/app_bar_layout" />
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                style="@style/Text.Normal"
+                android:layout_width="match_parent"
+                android:text="@{repo.fullName}" />
+
+            <TextView
+                style="@style/Text.VerySmall"
+                android:layout_width="match_parent"
+                android:maxLines="3"
+                android:text="@{repo.description}"
+                android:textColor="@color/grey" />
+
+            <TextView
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:text="@{`Last updated: ` + repo.updatedDate}" />
+
+            <TextView
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:text="@{`Last pushed: ` + repo.pushedDate}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:loadImage="@{repo.ownerAvatar}" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Text.Small"
+                        android:layout_width="match_parent"
+                        android:text="@{`Owner :`+ repo.ownerName}" />
+
+                    <TextView
+                        style="@style/Text.VerySmall"
+                        android:layout_width="match_parent"
+                        android:text="@{`Type :` + repo.ownerType}"
+                        android:textColor="@color/grey" />
+                </LinearLayout>
+            </LinearLayout>
+            
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

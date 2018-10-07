@@ -53,6 +53,31 @@ class Repository {
         get() {
             return SimpleDateFormat("MMM d, yyyy hh:mm a").format(createdAt)
         }
+
+    var updatedDate: String = ""
+        get() {
+            return SimpleDateFormat("MMM d, yyyy hh:mm a").format(updatedAt)
+        }
+
+    var pushedDate: String = ""
+        get() {
+            return SimpleDateFormat("MMM d, yyyy hh:mm a").format(pushedAt)
+        }
+
+    val ownerName: String
+        get() {
+            return owner?.name ?: ""
+        }
+
+    val ownerType: String
+        get() {
+            return owner?.type ?: ""
+        }
+
+    val ownerAvatar: String
+        get() {
+            return owner?.avatarUrl ?: ""
+        }
 }
 
 data class RepositoryResponse(val items: List<Repository>)
