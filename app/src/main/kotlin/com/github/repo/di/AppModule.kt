@@ -1,10 +1,15 @@
 package com.github.repo.di
 
 import android.content.Context
+import com.github.repo.network.GitRepository
+import com.github.repo.network.GitService
+import com.github.repo.repositories.RepositoriesViewModel
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
+import org.koin.android.viewmodel.ext.koin.viewModel
+import org.koin.dsl.module.applicationContext
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,8 +24,16 @@ object AppModule {
         // Network dependencies
         single(definition = { createOkHttpClient(androidApplication()) })
         single(definition = { createRetrofit(get()) })
+        single(definition = { gitService(get()) })
+        single(definition = { GitRepository(get()) })
+
+        viewModel { RepositoriesViewModel(get()) }
 
     })
+
+    private fun gitService(retrofit: Retrofit): GitService {
+        return retrofit.create(GitService::class.java)
+    }
 
     private fun createRetrofit(okHttpClient: OkHttpClient): Retrofit {
 

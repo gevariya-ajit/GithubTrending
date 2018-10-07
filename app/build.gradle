@@ -51,7 +51,9 @@ dependencies {
     implementation libraries.support.design
     implementation libraries.constraintLayout
 
-    implementation libraries.koin
+    implementation libraries.koin.koin
+    implementation libraries.koin.viewModel
+
     implementation libraries.timber
     implementation libraries.okhttp.okhttp
     implementation libraries.okhttp.interactor
@@ -61,5 +63,7 @@ dependencies {
     implementation libraries.rxJava
     implementation libraries.rxAndroid
     implementation libraries.rxKotlin
+
+
 
 }

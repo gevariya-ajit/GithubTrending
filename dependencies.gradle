@@ -12,7 +12,10 @@ ext {
     ]
 
     libraries = [
-            koin            : "org.koin:koin-android:$versions.koin",
+            koin            : [
+                    koin     : "org.koin:koin-android:$versions.koin",
+                    viewModel: "org.koin:koin-android-viewmodel:$versions.koin"
+            ],
             timber          : "com.jakewharton.timber:timber:$versions.timber",
             okhttp          : [
                     okhttp    : "com.squareup.okhttp3:okhttp:$versions.okhttp",
