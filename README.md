@@ -1,2 +1,2 @@
 # GithubTrending
-List of repositories trending by github.
+Github search API integration wity kotlin keyword.
