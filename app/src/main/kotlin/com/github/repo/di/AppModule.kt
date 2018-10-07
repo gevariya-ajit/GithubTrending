@@ -4,18 +4,19 @@ import android.content.Context
 import com.github.repo.network.GitRepository
 import com.github.repo.network.GitService
 import com.github.repo.repositories.RepositoriesViewModel
+import com.google.gson.GsonBuilder
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.applicationContext
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.io.File
 import java.util.concurrent.TimeUnit
+
 
 object AppModule {
 
@@ -36,10 +37,13 @@ object AppModule {
     }
 
     private fun createRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        val gson = GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create()
 
         return Retrofit.Builder()
                 .baseUrl("https://api.github.com/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build()
     }

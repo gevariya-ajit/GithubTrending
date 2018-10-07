@@ -1,6 +1,8 @@
 package com.github.repo.model
 
 import com.google.gson.annotations.SerializedName
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Repository {
 
@@ -11,7 +13,7 @@ class Repository {
     var name: String? = null
 
     @SerializedName("full_name")
-    var fullName: String? = null
+    var fullName: String = ""
 
     @SerializedName("owner")
     var owner: Owner? = null
@@ -37,6 +39,20 @@ class Repository {
     @SerializedName("default_branch")
     var defaultBranch: String? = null
 
+    @SerializedName("created_at")
+    var createdAt: Date = Date()
+
+    @SerializedName("updated_at")
+    var updatedAt: Date? = null
+
+    @SerializedName("pushed_at")
+    var pushedAt: Date? = null
+
+
+    var createdDate: String = ""
+        get() {
+            return SimpleDateFormat("MMM d, yyyy hh:mm a").format(createdAt)
+        }
 }
 
 data class RepositoryResponse(val items: List<Repository>)

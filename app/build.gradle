@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -64,6 +66,9 @@ dependencies {
     implementation libraries.rxAndroid
     implementation libraries.rxKotlin
 
+    implementation libraries.epoxy.epoxy
+    implementation libraries.epoxy.databinding
 
+    kapt libraries.databinding
 
 }
