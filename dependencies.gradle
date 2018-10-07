@@ -1,11 +1,21 @@
 ext {
     versions = [
             koin    : '1.0.1',
-            timber  : '4.7.1'
+            timber  : '4.7.1',
+            okhttp  : '3.11.0',
+            retrofit: '2.4.0'
     ]
 
     libraries = [
-            koin        : "org.koin:koin-android:$versions.koin",
-            timber      : "com.jakewharton.timber:timber:$versions.timber"
+            koin    : "org.koin:koin-android:$versions.koin",
+            timber  : "com.jakewharton.timber:timber:$versions.timber",
+            okhttp  : [
+                    okhttp    : "com.squareup.okhttp3:okhttp:$versions.okhttp",
+                    interactor: "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
+            ],
+            retrofit: [
+                    retrofit: "com.squareup.retrofit2:retrofit:$versions.retrofit",
+                    gson    : "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+            ]
     ]
 }

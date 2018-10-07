@@ -49,6 +49,9 @@ dependencies {
 
     implementation libraries.koin
     implementation libraries.timber
-
+    implementation libraries.okhttp.okhttp
+    implementation libraries.okhttp.interactor
+    implementation libraries.retrofit.retrofit
+    implementation libraries.retrofit.gson
 
 }
