@@ -1,9 +1,11 @@
 ext {
     versions = [
-            koin : '1.0.1'
+            koin    : '1.0.1',
+            timber  : '4.7.1'
     ]
 
     libraries = [
-            koin     : "org.koin:koin-android:$versions.koin"
+            koin        : "org.koin:koin-android:$versions.koin",
+            timber      : "com.jakewharton.timber:timber:$versions.timber"
     ]
 }
