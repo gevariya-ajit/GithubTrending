@@ -1,0 +1,9 @@
+ext {
+    versions = [
+            koin : '1.0.1'
+    ]
+
+    libraries = [
+            koin     : "org.koin:koin-android:$versions.koin"
+    ]
+}
