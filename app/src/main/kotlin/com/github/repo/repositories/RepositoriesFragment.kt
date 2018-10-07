@@ -2,11 +2,13 @@ package com.github.repo.repositories
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.github.repo.R
 import com.github.repo.base.BaseFragment
 import com.github.repo.makeErrorSnackBar
 import com.github.repo.network.GitRepository
 import com.github.repo.repositories.epoxy.RepositoryController
+import com.github.repo.ui.EndlessScrollListener
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
@@ -39,22 +41,31 @@ class RepositoriesFragment : BaseFragment() {
         controller = RepositoryController {
             Timber.d("Repo clicked: ${it.fullName}")
         }
+        val linearLayoutManager = LinearLayoutManager(context)
         with(recycler) {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = linearLayoutManager
             adapter = controller.adapter
         }
+
+        recycler.addOnScrollListener(object : EndlessScrollListener(linearLayoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                loadRepositories(page + 1)
+            }
+        })
+
     }
 
-    private fun loadRepositories() {
-        if (!swipeRefresh.isRefreshing) swipeRefresh.isRefreshing = true
+    private fun loadRepositories(page: Int = 1) {
+        if (!swipeRefresh.isRefreshing && page == 1) swipeRefresh.isRefreshing = true
         viewModel
-                .getRepositories(GitRepository.Order.ASC, GitRepository.Language.KOTLIN, 10, 1)
+                .getRepositories(GitRepository.Order.ASC, GitRepository.Language.KOTLIN, PAGE_SIZE, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
                             swipeRefresh.isRefreshing = false
-                            controller.setRepositories(it)
+                            controller.addRepositories(it)
+                            if(it.size < PAGE_SIZE) controller.setLoaderEnable(false)
                         },
                         {
                             swipeRefresh.isRefreshing = false
@@ -63,5 +74,10 @@ class RepositoriesFragment : BaseFragment() {
                         }
                 )
                 .addTo(disposable)
+    }
+
+    companion object {
+        const val PAGE_SIZE = 25
+
     }
 }

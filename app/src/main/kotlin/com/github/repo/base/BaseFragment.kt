@@ -33,6 +33,8 @@ abstract class BaseFragment : Fragment() {
         super.onDetach()
     }
 
+    open fun onBackPressed(): Boolean = false
+
     open fun getFragmentTag(): String = javaClass.simpleName
 
     open fun getToolbarTitle(): Int = R.string.app_name

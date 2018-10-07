@@ -7,11 +7,12 @@ class RepositoryController(
         private val clickListener: ((repo: Repository) -> (Unit))? = null
 ) : EpoxyController() {
 
-    private var repos: List<Repository>? = null
+    private var repos = mutableListOf<Repository>()
     private var isLoaderEnable = true
 
-    fun setRepositories(repos: List<Repository>) {
-        this.repos = repos
+    fun addRepositories(list: List<Repository>) {
+        this.repos.addAll(list)
+        this.repos = repos.asSequence().distinctBy { it.id }.toMutableList()
         requestModelBuild()
     }
 
@@ -21,24 +22,17 @@ class RepositoryController(
     }
 
     override fun buildModels() {
-        repos?.forEach {
-            RepositoryEpoxyModel(it)
+        repos.forEach {
+            RepositoryEpoxyModel(it, clickListener)
                     .id(it.id)
                     .addTo(this)
 
         }
-        repos?.let {
-            if (isLoaderEnable) {
-                ProgressEpoxyModel()
-                        .id("progress")
-                        .addTo(this)
-            }
+        if (isLoaderEnable && repos.size > 0) {
+            ProgressEpoxyModel()
+                    .id("progress")
+                    .addTo(this)
         }
-    }
-
-    fun clear() {
-        this.repos = null
-        requestModelBuild()
     }
 
 }

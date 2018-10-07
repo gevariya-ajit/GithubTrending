@@ -13,4 +13,16 @@ open class BaseActivity : AppCompatActivity() {
                 .commitAllowingStateLoss()
     }
 
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            val size = supportFragmentManager.fragments.size
+            if (size > 0) {
+                val fragment = supportFragmentManager.fragments[size - 1]
+                if (fragment is BaseFragment) {
+                    if (fragment.onBackPressed()) return
+                }
+            }
+        }
+        super.onBackPressed()
+    }
 }
