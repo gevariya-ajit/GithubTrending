@@ -17,4 +17,6 @@
     <color name="grey_30">#30808080</color>
     <color name="grey_20">#20808080</color>
     <color name="grey_10">#10808080</color>
+
+    <color name="lite_grey">#f2f2f2</color>
 </resources>

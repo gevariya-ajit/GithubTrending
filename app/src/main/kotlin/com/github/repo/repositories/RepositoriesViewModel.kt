@@ -16,7 +16,7 @@ class RepositoriesViewModel(
             pageSize: Int,
             page: Int
     ): Observable<List<Repository>> {
-
+        // TODO DB layer implementation with live data return type.
         return gitRepository.getRepositories(order, language, pageSize, page)
 
     }

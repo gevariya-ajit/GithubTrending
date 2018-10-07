@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.github.repo.R
 import com.github.repo.base.BaseFragment
+import com.github.repo.baseActivity
 import com.github.repo.makeErrorSnackBar
 import com.github.repo.network.GitRepository
 import com.github.repo.repositories.epoxy.RepositoryController
@@ -14,17 +15,23 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_repositories.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import timber.log.Timber
 
 class RepositoriesFragment : BaseFragment() {
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //// Inject
+
     private val viewModel by sharedViewModel<RepositoriesViewModel>()
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //// Private members
 
     private lateinit var controller: RepositoryController
 
-    override fun getLayout(): Int = R.layout.fragment_repositories
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //// Override methods
 
-    override fun getToolbarTitle(): Int = R.string.repositories
+    override fun getLayout(): Int = R.layout.fragment_repositories
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -37,10 +44,26 @@ class RepositoriesFragment : BaseFragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        setToolbarTitle(getString(R.string.repositories))
+    }
+
+    override fun onBackPressed(): Boolean {
+        baseActivity()?.finish()
+        return true
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //// Private methods
+
     private fun initController() {
         controller = RepositoryController {
-            Timber.d("Repo clicked: ${it.fullName}")
+            val fragment = RepositoryDetailFragment.getInstance(it)
+            baseActivity()?.addFragment(fragment)
         }
+
         val linearLayoutManager = LinearLayoutManager(context)
         with(recycler) {
             layoutManager = linearLayoutManager
@@ -65,7 +88,7 @@ class RepositoriesFragment : BaseFragment() {
                         {
                             swipeRefresh.isRefreshing = false
                             controller.addRepositories(it)
-                            if(it.size < PAGE_SIZE) controller.setLoaderEnable(false)
+                            if (it.size < PAGE_SIZE) controller.setLoaderEnable(false)
                         },
                         {
                             swipeRefresh.isRefreshing = false
@@ -75,6 +98,9 @@ class RepositoriesFragment : BaseFragment() {
                 )
                 .addTo(disposable)
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //// Static
 
     companion object {
         const val PAGE_SIZE = 25

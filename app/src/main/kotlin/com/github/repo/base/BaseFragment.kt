@@ -23,11 +23,6 @@ abstract class BaseFragment : Fragment() {
         baseActivity()?.setSupportActionBar(toolbar)
     }
 
-    override fun onResume() {
-        super.onResume()
-        toolbar.title = getString(getToolbarTitle())
-    }
-
     override fun onDetach() {
         disposable.clear()
         super.onDetach()
@@ -37,9 +32,11 @@ abstract class BaseFragment : Fragment() {
 
     open fun getFragmentTag(): String = javaClass.simpleName
 
-    open fun getToolbarTitle(): Int = R.string.app_name
+    open fun setToolbarTitle(title: String){
+        toolbar.title = title
+    }
+
 
     abstract fun getLayout(): Int
-
 
 }
