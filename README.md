@@ -8,3 +8,4 @@ Github search API integration wity kotlin keyword.
 - Retrofit and OkHttp.
 - Koin for dependency management.
 - Glide for Image loading.
+- RxAndroid/Kotlin.
